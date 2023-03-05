@@ -1,0 +1,6 @@
+author: Geonovum TPOD team
+
+theme: minima
+
+titles_from_headings:
+    strip_title: true

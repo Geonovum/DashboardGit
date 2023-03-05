@@ -5,9 +5,12 @@
 from github import Github
 import os;
 
-f = open('index.md', 'w')
+f = open('docs/index.md', 'w')
 
 f.write('''
+---
+title: Geonovum GitHub Dashboard
+---
 # Dashboard met Geonovum repos
 
 Dit is het begin van een dashboard waarop je in één oogopslag een aantal gegevens van de Github repos van Geonovum kunt zien.

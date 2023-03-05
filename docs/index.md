@@ -1,4 +1,7 @@
 
+---
+title: Geonovum GitHub Dashboard
+---
 # Dashboard met Geonovum repos
 
 Dit is het begin van een dashboard waarop je in één oogopslag een aantal gegevens van de Github repos van Geonovum kunt zien.
