@@ -11,30 +11,33 @@ f.write('''
 ---
 title: Geonovum GitHub Dashboard
 ---
-# Dashboard met Geonovum repos
 
-Dit is het begin van een dashboard waarop je in één oogopslag een aantal gegevens van de Github repos van Geonovum kunt zien.
+Op dit dashboard zie je in één oogopslag alle openbare Github repositories van Geonovum.
 
 | Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|
 |------|-------------|-----------|----|----|---|
 ''')
 
-# using an access token
 #
-# Een github access should be provided via the environment.
+# Het script maakt gebruik van de GitHub API hiervoor heb je een access token nodig.
+# Dit script gaat ervan uit dat deze in een environment variable staat.
 #
 git = Github(os.environ['GITHUBSECRET'])
 org = git.get_organization('Geonovum')
 
 #
-# Itereer over alle publieke repos van Geonovum.
+# Itereer over alle repositories van Geonovum.
 #
 for repo in org.get_repos():
+    #
+    # Sla private repos over.
+    #
+    if repo.private:
+        continue
+
     releases = ""
     for release in repo.get_releases():
         releases = releases + " " + release.tag_name
-
-    html_url = repo.html_url
 
     description = repo.description
     if description is not None:
@@ -44,6 +47,7 @@ for repo in org.get_repos():
         pages = "[pages](https://geonovum.github.io/{}/)".format(repo.name)
     else:
         pages = "";
+
     if not repo.archived:
         archief = "actief";
     else:
@@ -54,11 +58,4 @@ for repo in org.get_repos():
     else:
         zichtbaarheid = "prive";
 
-    #
-    # Only public repos should be on the dashboard.
-    #
-    if not repo.private:
-        f.write("| [{}]({}) | {} | {} | {} | {} | {} |\n".format(repo.name,html_url,description,repo.pushed_at,zichtbaarheid,archief,pages))
-    #if releases != "":
-    #f.write("|releases|" + releases + "|\n")
-
+    f.write("| [{}]({}) | {} | {} | {} | {} | {} |\n".format(repo.name,repo.html_url,description,repo.pushed_at,zichtbaarheid,archief,pages))
