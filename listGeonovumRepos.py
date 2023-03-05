@@ -38,7 +38,7 @@ for repo in org.get_repos():
         description = description.replace('|',' ')
 
     if repo.has_pages:
-        pages = "pages";
+        pages = "[pages](https://geonovum.github.io/{}/)".format(repo.name)
     else:
         pages = "";
     if not repo.archived:
