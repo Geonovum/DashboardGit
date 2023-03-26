@@ -14,8 +14,8 @@ title: Geonovum GitHub Dashboard
 
 Op dit dashboard zie je in één oogopslag alle openbare Github repositories van Geonovum.
 
-| Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|
-|------|-------------|-----------|----|----|---|
+| Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|releases|
+|------|-------------|-----------|----|----|---|---|
 ''')
 
 #
@@ -58,4 +58,12 @@ for repo in org.get_repos():
     else:
         zichtbaarheid = "prive";
 
-    f.write("| [{}]({}) | {} | {} | {} | {} | {} |\n".format(repo.name,repo.html_url,description,repo.pushed_at,zichtbaarheid,archief,pages))
+    f.write("| [{}]({}) | {} | {} | {} | {} | {} | {} |\n".format(
+        repo.name,
+        repo.html_url,
+        description,
+        repo.pushed_at,
+        zichtbaarheid,
+        archief,
+        pages,
+        releases))
