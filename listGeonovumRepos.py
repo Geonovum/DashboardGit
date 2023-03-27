@@ -8,10 +8,6 @@ import os;
 f = open('docs/index.md', 'w')
 
 f.write('''
----
-title: Geonovum GitHub Dashboard
----
-
 Op dit dashboard zie je in één oogopslag alle openbare Github repositories van Geonovum.
 
 | Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|releases|
@@ -42,6 +38,8 @@ for repo in org.get_repos():
     description = repo.description
     if description is not None:
         description = description.replace('|',' ')
+    else:
+        description = ""
 
     if repo.has_pages:
         pages = "[pages](https://geonovum.github.io/{}/)".format(repo.name)
@@ -62,7 +60,7 @@ for repo in org.get_repos():
         repo.name,
         repo.html_url,
         description,
-        repo.pushed_at,
+        repo.pushed_at.date(),
         zichtbaarheid,
         archief,
         pages,
