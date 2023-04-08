@@ -10,8 +10,8 @@ f = open('docs/index.md', 'w')
 f.write('''
 Op dit dashboard zie je in één oogopslag alle openbare Github repositories van Geonovum.
 
-| Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|releases|
-|------|-------------|-----------|----|----|---|---|
+| Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|releases|views(2w)|
+|------|-------------|-----------|----|----|---|---|----|
 ''')
 
 #
@@ -56,7 +56,9 @@ for repo in org.get_repos():
     else:
         zichtbaarheid = "prive";
 
-    f.write("| [{}]({}) | {} | {} | {} | {} | {} | {} |\n".format(
+    views = repo.get_views_traffic('week')
+
+    f.write("| [{}]({}) | {} | {} | {} | {} | {} | {} | {} |\n".format(
         repo.name,
         repo.html_url,
         description,
@@ -64,4 +66,5 @@ for repo in org.get_repos():
         zichtbaarheid,
         archief,
         pages,
-        releases))
+        releases,
+        views['count']))
