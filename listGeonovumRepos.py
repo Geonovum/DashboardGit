@@ -4,14 +4,15 @@
 #
 from github import Github
 import os;
+import sys;
 
 f = open('docs/index.md', 'w')
 
 f.write('''
 Op dit dashboard zie je in één oogopslag alle openbare Github repositories van Geonovum.
 
-| Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|releases|views(2w)|
-|------|-------------|-----------|----|----|---|---|----|
+| Naam | Omschrijving | laatste wijziging| zichtbaarheid | archief |heeft_pages|nview|releases|teams|
+|------|-------------|-----------|----|----|---|---|----|-----|
 ''')
 
 #
@@ -31,9 +32,18 @@ for repo in org.get_repos():
     if repo.private:
         continue
 
+    #
+    # Dit zou een list teams moeten opleveren maar werkt nog niet.
+    #
+    teams = ""
+    for team in repo.get_teams():
+        teams = teams + " [({})]({})".format(team.name,team.html_url)
+
     releases = ""
     for release in repo.get_releases():
         releases = releases + " " + release.tag_name
+
+
 
     description = repo.description
     if description is not None:
@@ -58,7 +68,7 @@ for repo in org.get_repos():
 
     views = repo.get_views_traffic('week')
 
-    f.write("| [{}]({}) | {} | {} | {} | {} | {} | {} | {} |\n".format(
+    f.write("| [{}]({}) | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(
         repo.name,
         repo.html_url,
         description,
@@ -66,5 +76,6 @@ for repo in org.get_repos():
         zichtbaarheid,
         archief,
         pages,
+        views['count'],
         releases,
-        views['count']))
+        teams))
