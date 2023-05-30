@@ -26,7 +26,7 @@ for x in data:
     isEmpty = x['isEmpty']
     
     if isEmpty:
-        print('manually skipping repo {} because empty.'.format(repo))
+        print('skipping repo {} because empty.'.format(repo))
     elif os.path.isdir(repo):
         print('repo {} exisits updating'.format(repo))
         repo = Repo(os.path.abspath(repo));
