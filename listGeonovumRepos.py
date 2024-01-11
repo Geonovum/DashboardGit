@@ -19,7 +19,7 @@ Op dit dashboard zie je in één oogopslag alle openbare Github repositories van
 # Het script maakt gebruik van de GitHub API hiervoor heb je een access token nodig.
 # Dit script gaat ervan uit dat deze in een environment variable staat.
 #
-git = Github(os.environ['GITHUBSECRET'])
+git = Github(os.environ['GH_TOKEN'])
 org = git.get_organization('Geonovum')
 
 #

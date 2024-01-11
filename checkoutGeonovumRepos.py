@@ -2,12 +2,17 @@
 #
 # author: Wilko Quak (w.quak@geonovum.nl)
 #
+# Dit script checkt alle Geonovum repositories uit en houdt ze up to date.
+# Vereisten:
+# - Github client is geinstalleerd: https://cli.github.com/manual
+# - Token maken en inloggen met
+#
 import subprocess
 import json
 import os
 from git import Repo
 
-output = subprocess.check_output('gh repo list Geonovum -L 400 --json name,isEmpty')
+output = subprocess.check_output('gh repo list Geonovum -L 400 --json name,isEmpty',shell=True)
 data = json.loads(output)
 
 #data = json.loads('''
@@ -33,4 +38,4 @@ for x in data:
         repo.git.pull()
     else:
         print('repo {} does not exist checking out'.format(repo))
-        subprocess.check_output('gh repo clone Geonovum/{}'.format(repo))
+        subprocess.check_output('gh repo clone Geonovum/{}'.format(repo),shell=True)
