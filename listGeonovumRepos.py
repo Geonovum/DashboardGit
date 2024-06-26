@@ -3,8 +3,9 @@
 # https://pygithub.readthedocs.io/en/latest/github_objects/Repository.html
 #
 from github import Github
-import os;
-import sys;
+from pprint import pprint
+import os
+import sys
 
 f = open('docs/index.md', 'w')
 
@@ -37,7 +38,8 @@ for repo in org.get_repos():
     #
     teams = ""
     for team in repo.get_teams():
-        teams = teams + " [({})]({})".format(team.name,team.html_url)
+        if hasattr(team,'html_url'):
+            teams = teams + " [({})]({})".format(team.name,team.html_url)
 
     releases = ""
     for release in repo.get_releases():
