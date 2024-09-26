@@ -34,8 +34,8 @@ for x in data:
         print('skipping repo {} because empty.'.format(repo))
     elif os.path.isdir(repo):
         print('repo {} exisits updating'.format(repo))
-        repo = Repo(os.path.abspath(repo));
-        repo.git.pull()
+        subprocess.check_output('cd {}; gh repo sync'.format(repo),shell=True)
     else:
         print('repo {} does not exist checking out'.format(repo))
+        print('gh repo clone Geonovum/{}'.format(repo))
         subprocess.check_output('gh repo clone Geonovum/{}'.format(repo),shell=True)
