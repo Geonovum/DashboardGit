@@ -15,14 +15,17 @@ from git import Repo
 output = subprocess.check_output('gh repo list Geonovum -L 400 --json name,isEmpty',shell=True)
 data = json.loads(output)
 
+#
+# For small tests you can run the script with only this repo.
+#
 #data = json.loads('''
 #[
-  #{
-    #"name": "dso-cimop"
-  #},
-  #{
-    #"name": "DashboardGit"
-  #}
+#  {
+#    #"name": "dso-cimop"
+#  },
+#  {
+#    "name": "DashboardGit"
+#  }
 #]
 #''')
 
@@ -33,7 +36,7 @@ for x in data:
     if isEmpty:
         print('skipping repo {} because empty.'.format(repo))
     elif os.path.isdir(repo):
-        print('repo {} exisits updating'.format(repo))
+        print('repo {} exists updating'.format(repo))
         subprocess.check_output('cd {}; gh repo sync'.format(repo),shell=True)
     else:
         print('repo {} does not exist checking out'.format(repo))
